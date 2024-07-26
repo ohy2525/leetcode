@@ -1,22 +1,14 @@
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
-        if (temperatures.length == 1) return new int[]{0};
+        ArrayDeque<Integer> stack = new ArrayDeque<>();
         int[] answer = new int[temperatures.length];
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
 
-        pq.add(new int[]{temperatures[0], 0});
-
-        for (int i = 1; i < temperatures.length; i++) {
-            while (pq.size() > 0 && pq.peek()[0] < temperatures[i]) {
-                int[] tmp = pq.poll();
-                answer[tmp[1]] = i - tmp[1];
+        for (int i = 0; i < temperatures.length; i++) {
+            while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
+                int idx = stack.pop();
+                answer[idx] = i - idx;
             }
-            pq.add(new int[]{temperatures[i], i});
-        }
-        
-        while (pq.size() > 0) {
-            int[] tmp = pq.poll();
-            answer[tmp[1]] = 0;
+            stack.push(i);
         }
 
         return answer;
