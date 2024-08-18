@@ -1,32 +1,20 @@
 class Solution {
     public int findLatestStep(int[] arr, int m) {
-        int n = arr.length;
+        if (arr.length == m) return m;
+
+        int[] length = new int[arr.length + 2];
+
         int result = -1;
+        for (int i = 0; i <arr.length; i++) {
+            int num = arr[i];
+            int left = length[num - 1], right = length[num + 1];
 
-        int[] lenAtIndex = new int[n + 2];
-        int[] countLen = new int[n + 2];
+            length[num - left] = left + right + 1;
+            length[num + right] = left + right + 1;
 
-        for (int i = 0; i < n; i++) {
-            int leftLen = lenAtIndex[arr[i] - 1];
-            int rightLen = lenAtIndex[arr[i] + 1];
-
-            int newLen = leftLen + rightLen + 1;
-
-            lenAtIndex[arr[i]] = newLen;
-            lenAtIndex[arr[i] - leftLen] = newLen;
-            lenAtIndex[arr[i] + rightLen] = newLen;
-
-            countLen[leftLen]--;
-            countLen[rightLen]--;
-            countLen[newLen]++;
-
-            if (countLen[m] > 0) {
-                result = i + 1;
+            if (left == m || right == m) {
+                result = i;
             }
-        }
-
-        if (countLen[m] > 0) {
-                result = i + 1;
         }
 
         return result;
