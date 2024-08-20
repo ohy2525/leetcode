@@ -18,7 +18,7 @@ class Solution {
     private boolean cond(int[] piles, int k, int h) {
         int curCnt = 0;
         for (int p : piles) {
-            curCnt += p / k + (p % k ? 1 : 0);
+            curCnt += p / k + (p % k > 0 ? 1 : 0);
             if (curCnt > h) return false;
         }
         return true;
