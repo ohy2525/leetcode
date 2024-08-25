@@ -16,12 +16,24 @@
 class Solution {
     public int countNodes(TreeNode root) {
         if (root == null) return 0;
-        return count(root) - 1;
+        
+        int leftH = getLeftHeight(root);
+        int rightH = getRightHeight(root);
+
+        if (leftH == rightH) {
+            return (1 << leftH) - 1;
+        } else {
+            return 1 + countNodes(root.left) + countNodes(root.right);
+        }
     }
 
-    private int count(TreeNode root) {
-        if (root == null) return 1;
+    private int getLeftHeight(TreeNode node) {
+        if (node == null) return 0;
+        return 1 + getLeftHeight(node.left);
+    }
 
-        return count(root.left) + count(root.right);
+    private int getRightHeight(TreeNode node) {
+        if (node == null) return 0;
+        return 1 + getRightHeight(node.right);
     }
 }
