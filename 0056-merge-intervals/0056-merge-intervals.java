@@ -2,7 +2,7 @@ class Solution {
     public int[][] merge(int[][] intervals) {
         if (intervals.length == 0) return new int[0][];
         
-        Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
         
         List<int[]> result = new ArrayList<>();
         int left = intervals[0][0];
