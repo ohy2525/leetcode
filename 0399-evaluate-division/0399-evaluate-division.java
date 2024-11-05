@@ -2,7 +2,6 @@ class Solution {
     public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
         Map<String, Map<String, Double>> graph = new HashMap<>();
         
-        // Build the graph
         for (int i = 0; i < equations.size(); i++) {
             List<String> equation = equations.get(i);
             String a = equation.get(0);
@@ -15,7 +14,6 @@ class Solution {
         
         double[] results = new double[queries.size()];
         
-        // Helper function to perform DFS
         for (int i = 0; i < queries.size(); i++) {
             List<String> query = queries.get(i);
             String src = query.get(0);
